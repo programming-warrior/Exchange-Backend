@@ -1,8 +1,12 @@
 import express from "express"
+import cors from "cors";
 import { orderSchema } from "./types";
 import { orderBook,bookWithQuantity } from "./orrderBook";
+import orderRouter from "./routes/order";
 
 const app=express();
+app.use(express.json());
+app.use(cors());
 app.use(express.json());
 
 const BASE_ASSET="SOL";
@@ -16,7 +20,7 @@ interface Fill{
 
 let GLOBAL_TRADE_ID=1;
 
-
+app.use('/api/v1/order',orderRouter);
 
 
 app.post('/api/v1/order',(req,res)=>{
